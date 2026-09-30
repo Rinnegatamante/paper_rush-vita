@@ -1607,7 +1607,7 @@ void CallStaticVoidMethodV(void *env, void *obj, int methodID, uintptr_t *args) 
 	case CLOUD_SET_VALUE:
 		sprintf(fname, "ux0:data/papertrain_rush/cloud/%s", args[0]);
 		f = sceLibcBridge_fopen(fname, "wb");
-		sceLibcBridge_fwrite(args[1], 1, strlen(args[1]), f);
+		sceLibcBridge_fwrite((const char *)args[1], 1, strlen((const char *)args[1]), f);
 		sceLibcBridge_fclose(f);
 		break;
 	default:
@@ -1700,7 +1700,7 @@ void *CallObjectMethodV(void *env, void *obj, int methodID, uintptr_t *args) {
 	int lang = -1;
 	switch (methodID) {
 	default:
-		return 0x34343434;
+		return (void *)(uintptr_t)0x34343434;
 	}
 }
 
@@ -2177,7 +2177,7 @@ void *pthread_main(void *arg) {
 		int gl_prog;
 		glGetIntegerv(GL_CURRENT_PROGRAM, &gl_prog);
 		setup_2d_draw_rotated(bg_attributes, 0.0f, 0.0f, SCREEN_W, SCREEN_H);
-		vglDrawObjects(GL_TRIANGLE_STRIP, 4, GL_TRUE);
+		vglDrawObjects(GL_TRIANGLE_STRIP, 4);
 		glUseProgram(gl_prog);
 		vglSwapBuffers(GL_FALSE);
 	}
